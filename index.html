@@ -2,143 +2,124 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="bannerfall-build" content="BF7T1" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Bannerfall</title>
-
-  <link rel="stylesheet" href="style.css?v=BF7T1" />
-  <script defer src="main.js?v=BF7T1"></script>
+  <link rel="stylesheet" href="style.css?v=BF10" />
 </head>
-
 <body>
+  <div id="status" class="status"></div>
+
   <div id="app">
-    <div id="main">
+    <div id="boardWrap">
       <canvas id="board"></canvas>
-      <div id="statusLine">Loading…</div>
     </div>
 
     <aside id="sidebar">
-      <div class="brand">
+      <div class="sideHeader">
         <div class="title">Bannerfall</div>
-        <div class="subtitle">war-as-geometry</div>
+        <div class="subtitle">classical tactics • war-as-geometry</div>
       </div>
 
-      <div class="panel">
+      <section class="panel">
+        <div class="panelTitle">Mode</div>
         <div class="row">
-          <div class="label">Mode</div>
-          <div class="modeButtons">
-            <button id="modePlayBtn" class="btn modeBtn" type="button">Play</button>
-            <button id="modeEditBtn" class="btn modeBtn" type="button">Edit</button>
-          </div>
+          <button id="modePlayBtn" class="btn">Play</button>
+          <button id="modeEditBtn" class="btn">Edit</button>
         </div>
         <div id="modeHint" class="hint">Play mode (editor disabled)</div>
-      </div>
+      </section>
 
-      <div class="panel">
-        <div class="label">Turn</div>
-
-        <div class="turnRow">
-          <div class="turnKey">Side</div>
-          <div id="turnSideBadge" class="badge">BLUE</div>
+      <section class="panel">
+        <div class="panelTitle">Turn</div>
+        <div class="kv">
+          <div class="k">Side</div>
+          <div id="turnSidePill" class="pill">BLUE</div>
+        </div>
+        <div class="kv">
+          <div class="k">Acts</div>
+          <div id="turnActs" class="v">3</div>
         </div>
 
-        <div class="turnRow">
-          <div class="turnKey">Acts</div>
-          <div id="actsLeft" class="mono">3</div>
+        <div class="row">
+          <button id="btnPass" class="btn">Pass</button>
+          <button id="btnEndTurn" class="btn">End Turn</button>
         </div>
 
-        <div class="turnButtons">
-          <button id="passBtn" class="btn btnCompact" type="button">Pass</button>
-          <button id="endTurnBtn" class="btn btnCompact" type="button">End Turn</button>
+        <div class="hint" id="turnHint">
+          RB01: each unit may activate only once per turn. After acting it becomes SPENT until next turn.
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panelTitle">Scenario</div>
+        <div class="row">
+          <button id="btnDemo" class="btn">Demo Setup</button>
+          <button id="btnClearUnits" class="btn">Clear Units</button>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panelTitle">Event Log</div>
+        <div id="logList" class="log"></div>
+
+        <div id="log" class="log"></div>
+      </section>
+
+      <section class="panel">
+        <div class="panelTitle">Edit tools</div>
+        <div class="row">
+          <button id="btnToolShape" class="btn">Shape</button>
+          <button id="btnToolTerrain" class="btn">Terrain</button>
+          <button id="btnToolUnits" class="btn">Units</button>
+        </div>
+        <div id="editHint" class="hint">Switch to Edit mode to use tools.</div>
+      </section>
+
+      <section class="panel">
+        <div class="panelTitle">Terrain brush</div>
+        <div class="row wrap">
+          <button class="btn mini" data-terrain="clear">Clear</button>
+          <button class="btn mini" data-terrain="hills">Hills</button>
+          <button class="btn mini" data-terrain="woods">Woods</button>
+          <button class="btn mini" data-terrain="rough">Rough</button>
+          <button class="btn mini" data-terrain="water">Water</button>
+        </div>
+        <div class="hint">Edit + Terrain: click or click-drag to paint. “Clear” erases.</div>
+      </section>
+
+      <section class="panel">
+        <div class="panelTitle">Unit brush</div>
+
+        <div class="subTitle">Side</div>
+        <div class="row">
+          <button id="btnSideBlue" class="btn mini">Blue</button>
+          <button id="btnSideRed" class="btn mini">Red</button>
         </div>
 
-        <div id="turnHint" class="hint">
-          In Play: select a friendly unit to see move hexes. Click a blue-dashed hex to move (spends 1 act).
-        </div>
-      </div>
-
-      <div class="panel">
-        <div class="label">Event log</div>
-        <div id="logList" class="logList"></div>
-      </div>
-
-      <div class="panel">
-        <div class="label">Edit tools</div>
-        <div class="toolButtons">
-          <button id="toolShape" class="btn" type="button">Shape</button>
-          <button id="toolTerrain" class="btn" type="button">Terrain</button>
-          <button id="toolUnits" class="btn" type="button">Units</button>
-        </div>
-        <div id="toolHint" class="hint">Switch to Edit mode to use tools.</div>
-      </div>
-
-      <div class="panel">
-        <div class="label">Terrain brush</div>
-        <div id="terrainPalette" class="terrainPalette">
-          <button class="btn terrainBtn" type="button" data-terrain="clear">Clear</button>
-          <button class="btn terrainBtn" type="button" data-terrain="hills">Hills</button>
-          <button class="btn terrainBtn" type="button" data-terrain="woods">Woods</button>
-          <button class="btn terrainBtn" type="button" data-terrain="rough">Rough</button>
-          <button class="btn terrainBtn" type="button" data-terrain="water">Water</button>
-        </div>
-        <div class="hint">
-          In Edit + Terrain tool: click or click-drag to paint. “Clear” erases back to default.
-        </div>
-      </div>
-
-      <div class="panel">
-        <div class="label">Unit brush</div>
-
-        <div class="subLabel">Side</div>
-        <div class="unitRow">
-          <button class="btn unitBtn" type="button" data-side="blue">Blue</button>
-          <button class="btn unitBtn" type="button" data-side="red">Red</button>
+        <div class="subTitle">Type</div>
+        <div class="row wrap">
+          <button class="btn mini" data-utype="INF">INF</button>
+          <button class="btn mini" data-utype="CAV">CAV</button>
+          <button class="btn mini" data-utype="SKR">SKR</button>
+          <button class="btn mini" data-utype="ARC">ARC</button>
+          <button class="btn mini" data-utype="GEN">GEN</button>
         </div>
 
-        <div class="subLabel">Type</div>
-        <div class="unitRow">
-          <button class="btn unitBtn" type="button" data-utype="INF">INF</button>
-          <button class="btn unitBtn" type="button" data-utype="CAV">CAV</button>
-          <button class="btn unitBtn" type="button" data-utype="SKR">SKR</button>
-          <button class="btn unitBtn" type="button" data-utype="ARC">ARC</button>
-          <button class="btn unitBtn" type="button" data-utype="GEN">GEN</button>
+        <div class="subTitle">Quality</div>
+        <div class="row wrap">
+          <button class="btn mini" data-qual="green">Green</button>
+          <button class="btn mini" data-qual="regular">Regular</button>
+          <button class="btn mini" data-qual="veteran">Veteran</button>
         </div>
 
-        <div class="subLabel">Quality</div>
-        <div class="unitRow">
-          <button class="btn unitBtn" type="button" data-quality="green">Green</button>
-          <button class="btn unitBtn" type="button" data-quality="regular">Regular</button>
-          <button class="btn unitBtn" type="button" data-quality="veteran">Veteran</button>
-        </div>
-
-        <div class="hint">
-          In Edit + Units tool: click empty hex to place; click unit to remove.
-          Generals are always Green (forced).
-        </div>
-      </div>
-
-      <div class="panel">
-        <div class="label">Scenario JSON</div>
-
-        <div class="ioButtons">
-          <button id="exportBtn" class="btn btnCompact" type="button">Export</button>
-          <button id="importBtn" class="btn btnCompact" type="button">Import</button>
-          <button id="demoSetupBtn" class="btn btnCompact" type="button">Demo Setup</button>
-          <button id="clearUnitsBtn" class="btn btnCompact" type="button">Clear Units</button>
-        </div>
-
-        <textarea id="ioBox" spellcheck="false" placeholder="Export fills this box. Paste JSON here, then Import."></textarea>
-        <div id="ioStatus" class="hint">Tip: Import / Demo Setup / Clear Units require Edit mode.</div>
-      </div>
-
-      <div class="panel">
-        <div class="label">Truth probes</div>
-        <div class="hint">
-          Status line must show BUILD BF7 and HTML=BF7 JS=BF7.
-          In Play, selecting a friendly unit shows blue dashed move hexes (mv>0). Clicking one moves + spends 1 act.
-        </div>
-      </div>
+        <div class="hint">Edit + Units: click empty hex to place; click unit to remove. Generals are always Green.</div>
+      </section>
     </aside>
   </div>
+
+  <script>
+    window.BF_HTML_BUILD = "BF10";
+  </script>
+  <script src="main.js?v=BF10" defer></script>
 </body>
 </html>

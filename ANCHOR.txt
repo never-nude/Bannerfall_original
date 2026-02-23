@@ -1,11 +1,10 @@
 BANNERFALL — ANCHOR
 Folder: ~/dev/bannerfall
 Serve:  python3 -m http.server 8000 --bind 127.0.0.1
-URL:    http://127.0.0.1:8000/?v=BF7&ts=...
-Build:  BF7
+URL:    http://127.0.0.1:8000/?v=BF6&ts=...
+Build:  BF6
 
 Truth signals:
-- Status line shows BUILD BF7 and HTML=BF7 JS=BF7
-- In Edit: Demo Setup places a preset formation fast
-- In Play: selecting a friendly unit shows blue dashed move hexes (mv>0)
-- Clicking a dashed hex moves + spends 1 act; log records MOVE
+- Status line shows BUILD BF6 and HTML=BF6 JS=BF6
+- In Play: click unit selects; Pass reduces Acts; End Turn flips side
+- Event log records each action

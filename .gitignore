@@ -1,3 +1,7 @@
 .DS_Store
 .bk/
 .last_good
+# Bannerfall local-only folders
+.milestones/
+.last_patch
+*.zip

@@ -4,9 +4,10 @@ Run (SERVER tab):
   python3 -m http.server 8000 --bind 127.0.0.1
 
 Open:
-  http://127.0.0.1:8000/?v=BF7&ts=...
+  http://127.0.0.1:8000/?v=BF6&ts=...
 
-BF7:
-  - Movement-only in Play (reachable hexes + path preview + move consumes 1 act)
-  - Demo Setup preset formation button (Edit mode)
-  - Keeps editor + export/import + build-mismatch alarm
+BF6:
+  - Play scaffold: turn side + activations + Pass + End Turn
+  - Click unit to select in Play
+  - Event log panel
+  - Keeps editor + export/import
